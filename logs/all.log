@@ -1,0 +1,3 @@
+time="2022-06-11T17:18:21+03:00" level=info msg="create router" func="main.main()" file="main.go:13"
+time="2022-06-13T22:05:53+03:00" level=info msg="create router" func="main.main()" file="main.go:13"
+time="2022-06-13T22:06:25+03:00" level=info msg="title: Some spicy thing, body: Damn shit, this is HOT" func="main.main.func1()" file="main.go:19"
