@@ -7,3 +7,7 @@ time="2022-06-14T15:15:47+03:00" level=info msg="title: Subject, body: Math, Eng
 time="2022-06-14T15:17:22+03:00" level=info msg="Shutdown Server ... " func="main.main()" file="main.go:55"
 time="2022-06-14T15:17:27+03:00" level=info msg="timeout 5 seconds." func="main.main()" file="main.go:65"
 time="2022-06-14T15:17:27+03:00" level=info msg="Server exiting" func="main.main()" file="main.go:67"
+time="2022-06-17T11:46:29+03:00" level=info msg="create router" func="main.main()" file="main.go:19"
+time="2022-06-17T11:46:32+03:00" level=info msg="Shutdown Server ... " func="main.main()" file="main.go:66"
+time="2022-06-17T11:46:37+03:00" level=info msg="timeout 5 seconds." func="main.main()" file="main.go:76"
+time="2022-06-17T11:46:37+03:00" level=info msg="Server exiting" func="main.main()" file="main.go:78"

@@ -19,6 +19,14 @@ func main() {
 	logger.Info("create router")
 	router := gin.Default()
 
+	router.GET("/welcome", func(ctx *gin.Context) {
+		time.Sleep(2 * time.Second)
+		_, err := fmt.Fprintf(ctx.Writer, "Hello! It's welcome page")
+		if err != nil {
+			logger.Fatalf("can't write on page: %s", err)
+		}
+	})
+
 	router.POST("/create", func(ctx *gin.Context) {
 		body := ctx.PostForm("body")
 		title := ctx.PostForm("title")
@@ -29,7 +37,10 @@ func main() {
 	router.GET("/", func(ctx *gin.Context) {
 		time.Sleep(2 * time.Second)
 		for key, value := range info {
-			fmt.Fprint(ctx.Writer, fmt.Sprintf("Title: %s\nBody: %s\n\n", key, value))
+			_, err := fmt.Fprint(ctx.Writer, fmt.Sprintf("Title: %s\nBody: %s\n\n", key, value))
+			if err != nil {
+				logger.Fatalf("can't write on page: %s", err)
+			}
 		}
 	})
 
@@ -49,7 +60,7 @@ func main() {
 	quit := make(chan os.Signal)
 	// kill (no param) default send syscall.SIGTERM
 	// kill -2 is syscall.SIGINT
-	// kill -9 is syscall.SIGKILL but can't be caught, so don't need add it
+	// kill -9 is syscall.SIGKILL but can't be caught, so don't need to add it
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
 	logger.Info("Shutdown Server ... ")
