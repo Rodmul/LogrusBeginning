@@ -7,9 +7,14 @@ on:
     branches: [ "main" ]
 
 jobs:
-
-  build:
-    runs-on: ubuntu-latest
+  build_matrix:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+      
+    runs-on: ${{ matrix.os }}
+    env:
+      app_name: app_${{ matrix.os }}_${{ github.run_number }}
     steps:
     - uses: actions/checkout@v3
 
@@ -19,7 +24,14 @@ jobs:
         go-version: 1.18
 
     - name: Build
-      run: go build -v ./...
+      run: go build -o ${{ env.app_name }}
 
     - name: Test
       run: go test -v ./...
+    
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact-matrix
+        path: ${{ env.app_name }}
+        retention-days: 5
