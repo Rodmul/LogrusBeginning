@@ -19,7 +19,7 @@ jobs:
         go-version: 1.18
 
     - name: Build
-      run: go build -o app
+      run: go build -o app_ubuntu
 
     - name: Test
       run: go test -v ./...
@@ -28,7 +28,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: my-artifact
-        path: app
+        path: app_ubuntu
         retention-days: 5
   
   build_windows:
@@ -42,7 +42,7 @@ jobs:
           go-version: 1.18
  
       - name: Build
-        run: go build -o app
+        run: go build -o app_win
  
       - name: Test
         run: go test -v ./...
@@ -51,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: app
+          path: app_win
           retention-days: 5
           
   build_macos:
@@ -65,7 +65,7 @@ jobs:
           go-version: 1.18
  
       - name: Build
-        run: go build -o app
+        run: go build -o app_mac
  
       - name: Test
         run: go test -v ./...
@@ -74,5 +74,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: app
+          path: app_mac
           retention-days: 5
