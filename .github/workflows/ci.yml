@@ -7,9 +7,14 @@ on:
     branches: [ "main" ]
 
 jobs:
-
-  build_ubuntu:
-    runs-on: ubuntu-latest
+  build_matrix:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+      
+    runs-on: ${{ matrix.os }}
+    env:
+      app_name: app_${{ matrix.os }}_${{ github.run_number }}
     steps:
     - uses: actions/checkout@v3
 
@@ -19,7 +24,7 @@ jobs:
         go-version: 1.18
 
     - name: Build
-      run: go build -o app_ubuntu
+      run: go build -o ${{ env.app_name }}
 
     - name: Test
       run: go test -v ./...
@@ -27,52 +32,6 @@ jobs:
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v3
       with:
-        name: my-artifact
-        path: app_ubuntu
+        name: my-artifact-matrix
+        path: ${{ env.app_name }}
         retention-days: 5
-  
-  build_windows:
-    runs-on: windows-latest
-    steps: 
-      - uses: actions/checkout@v3
-
-      - name: Set up Go
-        uses: actions/setup-go@v3
-        with:
-          go-version: 1.18
- 
-      - name: Build
-        run: go build -o app_win
- 
-      - name: Test
-        run: go test -v ./...
-     
-      - name: 'Upload Artifact'
-        uses: actions/upload-artifact@v3
-        with:
-          name: my-artifact
-          path: app_win
-          retention-days: 5
-          
-  build_macos:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Set up Go
-        uses: actions/setup-go@v3
-        with:
-          go-version: 1.18
- 
-      - name: Build
-        run: go build -o app_mac
- 
-      - name: Test
-        run: go test -v ./...
-     
-      - name: 'Upload Artifact'
-        uses: actions/upload-artifact@v3
-        with:
-          name: my-artifact
-          path: app_mac
-          retention-days: 5
