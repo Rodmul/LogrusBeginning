@@ -32,6 +32,27 @@ jobs:
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v3
       with:
-        name: my-artifact-matrix
+        name: artifacts_folder
         path: ${{ env.app_name }}
         retention-days: 5
+
+  telegram:
+    needs: build_matrix
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with: 
+          name: artifacts_folder
+          path: artifacts
+
+      - name: Send to Telegram
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: Github Artifacts
+          document: artifacts/**
