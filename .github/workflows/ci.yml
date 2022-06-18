@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  build:
+  build_ubuntu:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -28,5 +28,28 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: my-artifact
-        path: main.go
+        path: Notebook
         retention-days: 5
+  
+  build_windows:
+    runs-on: windows-latest
+    steps: 
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.18
+ 
+      - name: Build
+        run: go build -v ./...
+ 
+      - name: Test
+        run: go test -v ./...
+     
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: Notebook.exe
+          retention-days: 5
