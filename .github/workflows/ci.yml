@@ -51,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: app.exe
+          path: app
           retention-days: 5
           
   build_macos:
@@ -74,5 +74,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: app.exe
+          path: app
           retention-days: 5
